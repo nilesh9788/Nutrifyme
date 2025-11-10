@@ -21,31 +21,29 @@
 // export default nextConfig
 
 
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // ✅ Enable Turbopack (Next.js 16 default)
+  // Enable Turbopack (default for Next.js 16)
   turbopack: {},
 
-  // ✅ Safe TypeScript option (still valid)
+  // Allow TypeScript builds to continue even with minor errors
   typescript: {
     ignoreBuildErrors: true,
   },
 
-  // ✅ Keep images unoptimized if you’re using custom image handling
+  // Disable image optimization (useful for static exports or Vercel previews)
   images: {
     unoptimized: true,
   },
 
-  // ✅ Keep your fallback config (still works fine)
-  webpack: (config, { isServer }) => {
+  // Keep minimal Webpack fallback only if certain packages require it
+  webpack: (config) => {
     config.resolve.fallback = {
       ...config.resolve.fallback,
       'class-variance-authority': false,
     };
     return config;
   },
-  
 };
 
 export default nextConfig;
